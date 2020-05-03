@@ -1,0 +1,51 @@
+
+
+/* set form background colour*/
+
+
+form {
+    background: #fff;
+}
+
+.inner-addon {
+    position: relative;
+}
+/* style icon */
+.inner-addon .fa {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+/* align icon */
+
+.left-addon .fa {
+    left: 0px;
+}
+/* add padding  */
+
+.left-addon input {
+    padding-left: 30px;
+}
+/* set padding and size of th form */
+
+.form-container {
+    border-radius: 5px;
+    padding: 50px;
+}
+/* set the hr with word of th form */
+
+
+.TextWithHr {
+    width: 100%;
+    height: 15px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.TextWithHr span {
+    font-size: 15px;
+    background-color: rgb(249, 251, 252);
+    padding: 0 8px;
+}
+
