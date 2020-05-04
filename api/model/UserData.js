@@ -2,8 +2,8 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 module.exports = {
-  get: function (con, callback) {
-    con.query("SELECT * FROM tblUser", callback);
+  get: function (con, data, callback) {
+    con.query(`SELECT * FROM tblUser U join tblUserTypes tut on U.UserTypeID=tut.UserTypeID WHERE  tut.UserTypeID = '${data.UserTypeID}'`, callback);
   },
 
   create: function (con, data, callback) {

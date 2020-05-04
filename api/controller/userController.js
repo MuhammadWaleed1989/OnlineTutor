@@ -4,7 +4,7 @@ const UserData = require("../model/UserData")
 module.exports = {
   /* Get all record */
   index: function (req, res) {
-    UserData.get(req.con, function (err, rows) {
+    UserData.get(req.con, req.body, function (err, rows) {
       res.json(rows);
     })
   },

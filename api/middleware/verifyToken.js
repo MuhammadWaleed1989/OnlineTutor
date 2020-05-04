@@ -11,7 +11,7 @@ var config = require('../config/index'); // get our config file
  */
 
 var verifyToken = function (req, res, next) {
-    var token = req.body.token || req.query.token || req.headers['authorization'];
+    let token = req.headers["x-access-token"];
     if (token) {
         // verify secret and checks exp
         jwt.verify(token, config.secret, function (err, currUser) {

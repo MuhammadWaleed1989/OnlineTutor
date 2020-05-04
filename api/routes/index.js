@@ -12,7 +12,7 @@ module.exports = () => {
 
     router.use("/", loginRoute)
     router.use("/", userTypeRoute)
-    router.use(verifyToken);
+    // router.use(verifyToken);
     router.use("/", tutorRoute)
     router.use("/", userRoute)
 

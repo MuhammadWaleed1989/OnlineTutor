@@ -4,8 +4,7 @@
   "description": "Online Tutor webapi",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "nodemon server.js"
   },
   "author": "Muhammad Waleed",
   "license": "ISC",

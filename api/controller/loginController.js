@@ -32,7 +32,7 @@ module.exports = {
                     res.json({
                         success: true,
                         message: 'Token generated',
-                        token: token,
+                        accessToken: token,
                         data: rows
                     });
                 }
