@@ -33,7 +33,7 @@ module.exports = {
                         success: true,
                         message: 'Token generated',
                         accessToken: token,
-                        data: rows
+                        user: rows
                     });
                 }
                 else {

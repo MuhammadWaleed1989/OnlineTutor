@@ -1,101 +1,119 @@
-import React from "react";
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
-export default function Registration() {
-  return (
-    <>
-      <section className="container-fluid">
-        <section className="row justify-content-center mt-3">
-          <section className="col-12 col-sm-6 col-md-4">
-            <form className="form-container">
-              <div className="text-center">
-                <i className="fa fa-user fa-lg">
-                  &nbsp;<b>Register Here</b>
-                </i>
-              </div>
-              <hr width="100%"></hr>
 
-              <div className="form-group mt-2">
-                <div className="inner-addon left-addon">
-                  <i className="fa fa-user"></i>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter UserName"
-                  />
-                </div>
-              </div>
-              <div className="form-group mt-4">
-                <div className="inner-addon left-addon">
-                  <i className="fa fa-envelope"></i>
+export default class Registration extends Component {
+  constructor() {
+    super();
 
-                  <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Email"
-                  />
-                </div>
-              </div>
-              <div className="form-group mt-4">
-                <div className="inner-addon left-addon">
-                  <i className="fa fa-key"></i>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Password"
-                  />
-                </div>
-              </div>
-              <div className="form-group mt-4">
-                <div className="inner-addon left-addon">
-                  <i className="fa fa-key"></i>
-                  <input
-                    type="password"
-                    className="form-control"
-                    placeholder="Confirm Password"
-                  />
-                </div>
-              </div>
-              <div className="form-group form-check mt-3">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label className="form-check-label" for="exampleCheck1">
-                  Remember me
-                </label>
-                <span className="ml-4">
-                  <a href="#">Forgot Password?</a>
-                </span>{" "}
-              </div>
+    this.state = {
+      FirstName: '',
+      LastName: '',
+      Email: '',
+      Password: '',
+      Phone: '',
+      Street: '',
+      City: '',
+      ZipCode: '',
+      Country: '',
+      AdressLineOne: '',
+      AdressLineTwo: '',
+      UserTypeID: 1
 
-              <div className="inner-addon left-addon">
-                <i className="fa fa-user"></i>
-                <button
-                  type="submit"
-                  className="btn btn-outline-success btn-block mt-4"
-                >
-                  Register
-                </button>
-              </div>
-              <div className="TextWithHr">
-                <span>or </span>
-              </div>
-              <div className="inner-addon left-addon mt-2">
-                <i className="fa fa-lock"></i>
-                <a href="#">
-                  <button
-                    type="submit"
-                    className="btn btn-outline-warning btn-block mt-4"
-                  >
-                    Login
-                  </button>
-                </a>
-              </div>
-            </form>
-          </section>
-        </section>
-      </section>
-    </>
-  );
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({
+      message: "",
+      successful: false
+    });
+
+    const data = {
+      FirstName: this.state.FirstName, LastName: this.state.LastName, Email: this.state.Email, Password: this.state.Password,
+      Phone: this.state.Phone,
+      Street: this.state.Street,
+      City: this.state.City,
+      ZipCode: this.state.ZipCode,
+      Country: this.state.Country,
+      AdressLineOne: this.state.AdressLineOne,
+      AdressLineTwo: this.state.AdressLineTwo,
+      UserTypeID: this.state.UserTypeID
+    }
+    AuthService.register(
+      data
+    ).then(
+      response => {
+        this.setState({
+          message: response.data.message,
+          successful: true
+        });
+      },
+      error => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
+
+        this.setState({
+          successful: false,
+          message: resMessage
+        });
+      }
+    );
+
+  }
+
+  render() {
+    return (
+      <>
+
+        <form onSubmit={this.handleSubmit}>
+          <h3>Sign Up</h3>
+          <div className="form-group">
+            <label>User Type</label>
+            <select id="UserTypeID" name="UserTypeID" className="form-control" onChange={this.handleChange}  >
+              <option value="1">Student</option>
+              <option value="2">Tutor</option>
+              <option value="3">Parent</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label>First name</label>
+            <input type="text" id="FirstName" name="FirstName" className="form-control" placeholder="First name" onChange={this.handleChange} />
+          </div>
+
+          <div className="form-group">
+            <label>Last name</label>
+            <input type="text" className="form-control" placeholder="Last name" id="LastName" name="LastName" onChange={this.handleChange} />
+          </div>
+
+          <div className="form-group">
+            <label>Email address</label>
+            <input type="email" className="form-control" placeholder="Enter email" id="Email" name="Email" onChange={this.handleChange} />
+          </div>
+
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" placeholder="Enter password" id="Password" name="Password" onChange={this.handleChange} />
+          </div>
+
+          <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+          <p className="forgot-password text-right">
+            Already registered <Link to={"/sign-in"} className="nav-link">sign in?</Link>
+          </p>
+        </form>
+      </>
+    );
+  }
 }

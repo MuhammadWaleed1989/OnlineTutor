@@ -1,81 +1,88 @@
-import React from "react";
+import React, { Component } from "react";
+import AuthService from "../services/auth.service";
 
-export default function Login() {
-  return (
-    <>
-      <section className="container-fluid">
-        <section className="row justify-content-center mt-4">
-          <section className="col-12 col-sm-6 col-md-4 ">
-            <form className="form-container">
-              <div className="text-center">
-                <i className="fa fa-user fa-2x mb-4">
-                  &nbsp;<b>LOGIN</b>
-                </i>
-              </div>
-              <hr width="100%"></hr>
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
 
-              <div className="form-group mt-4">
-                <div className="inner-addon left-addon">
-                  <i className="fa fa-user"></i>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter UserName"
-                  />
-                </div>
-                <div className="form-group mt-4">
-                  <div className="inner-addon left-addon">
-                    <i className="fa fa-key"></i>
-                    <input
-                      type="password"
-                      className="form-control"
-                      placeholder="Password"
-                    />
-                  </div>
-                  <div className="form-group form-check mt-3">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="exampleCheck1"
-                    />
-                    <label className="form-check-label" for="exampleCheck1">
-                      Remember me
-                    </label>
-                    <span className="ml-4">
-                      <a href="#">Forgot Password?</a>
-                    </span>{" "}
-                  </div>
+    this.state = {
 
-                  <div className="inner-addon left-addon">
-                    <i className="fa fa-lock"></i>
-                    <button
-                      type="submit"
-                      className="btn btn-outline-primary btn-block mt-5"
-                    >
-                      Login
-                    </button>
-                  </div>
-                  <div className="TextWithHr">
-                    <span>or </span>
-                  </div>
+      Email: '',
+      Password: '',
 
-                  <div className="inner-addon left-addon">
-                    <i className="fa fa-lock"></i>
-                    <a href="#">
-                      <button
-                        type="submit"
-                        className="btn btn-outline-warning btn-block mt-4"
-                      >
-                        Register
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </section>
-        </section>
-      </section>
-    </>
-  );
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({
+      message: "",
+      successful: false
+    });
+
+    const data = { Email: this.state.Email, Password: this.state.Password }
+    AuthService.login(
+      data
+    ).then(
+      response => {
+        this.props.history.push("/Admin");
+        window.location.reload();
+
+      },
+      error => {
+        const resMessage =
+          (error.response &&
+            error.response.message &&
+            error.response.message) ||
+          error.message ||
+          error.toString();
+
+        this.setState({
+          successful: false,
+          message: resMessage
+        });
+      }
+    );
+
+  }
+
+  render() {
+
+    return (
+      <>
+        <form onSubmit={this.handleSubmit}>
+          <h3>Sign In</h3>
+
+          <div className="form-group">
+            <label>Email address</label>
+            <input type="email" className="form-control" placeholder="Enter email" id="Email" name="Email"
+              onChange={this.handleChange} />
+          </div>
+
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" id="Password" name="Password" placeholder="Enter password" onChange={this.handleChange} />
+          </div>
+
+          <div className="form-group">
+            <div className="custom-control custom-checkbox">
+              <input type="checkbox" className="custom-control-input" id="customCheck1" />
+              <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+            </div>
+          </div>
+
+          <button type="submit" className="btn btn-primary btn-block">Submit</button>
+          <p className="forgot-password text-right">
+            Forgot <a href="#">password?</a>
+          </p>
+        </form>
+      </>
+    );
+  }
 }
