@@ -29,8 +29,9 @@ export default class Home extends Component {
                     <div class="page-content">
                         <SideBar />
                         <Switch>
+
                             <Route path="/students" component={StudentList} />
-                            <Route path="/tutors" component={TutorList} />
+                            <Route exact path="/tutors" component={TutorList} />
                             <Route path="/parents" component={ParentList} />
                         </Switch>
                     </div>

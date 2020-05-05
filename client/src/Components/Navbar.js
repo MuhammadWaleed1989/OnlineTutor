@@ -320,7 +320,7 @@ export default class Navbar extends Component {
 									<a href="#" className="dropdown-item"><i className="icon-comment-discussion"></i> Messages <span className="badge badge-pill bg-blue ml-auto">58</span></a>
 									<div className="dropdown-divider"></div>
 									<a href="#" className="dropdown-item"><i className="icon-cog5"></i> Account settings</a>
-									<a href="/home" className="nav-link" onClick={this.logOut}> <i className="icon-switch2"></i> Logout</a>
+									<a href="/sign-in" className="nav-link" onClick={this.logOut}> <i className="icon-switch2"></i> Logout</a>
 
 								</div>
 							</li>

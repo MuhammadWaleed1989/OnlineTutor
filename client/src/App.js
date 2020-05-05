@@ -68,13 +68,13 @@ class App extends Component {
           {currentUser ? (
             <Admin></Admin>
           ) : (
-              <Login></Login>
+              <Home></Home>
             )}
-          <Switch>
+          {/* <Switch>
             <Route exact path={["/", "/home"]} component={Login} />
             <Route path="/Admin" component={Admin} />
 
-          </Switch>
+          </Switch> */}
         </Router>
       </>
     );

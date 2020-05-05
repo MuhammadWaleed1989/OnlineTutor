@@ -31,7 +31,7 @@ export default class Login extends Component {
       data
     ).then(
       response => {
-        this.props.history.push("/Admin");
+        this.props.history.push("/tutors");
         window.location.reload();
 
       },
