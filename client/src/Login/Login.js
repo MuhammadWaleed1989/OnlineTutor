@@ -31,7 +31,29 @@ export default class Login extends Component {
       data
     ).then(
       response => {
-        this.props.history.push("/tutors");
+        debugger;
+        if (response.accessToken) {
+          debugger
+          const user = response.user;
+          const userType = user[0].UserType;
+          switch (userType) {
+            case 'Admin':
+              this.props.history.push("/tutors");
+              break;
+            case 'Tutor':
+              this.props.history.push("/tutorprofile");
+              break;
+            case 'Parent':
+              this.props.history.push("/parentprofile");
+              break;
+            case 'Student':
+              this.props.history.push("/studentprofile");
+              break;
+            default:
+              this.props.history.push("/sign-in");
+          }
+        }
+
         window.location.reload();
 
       },
