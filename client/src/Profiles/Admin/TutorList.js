@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import UserService from "../services/user.service";
-
-export default class ParentsList extends Component {
+import UserService from "../../services/user.service";
+export default class TutorList extends Component {
 	constructor(props) {
 		super(props);
 
@@ -10,7 +9,7 @@ export default class ParentsList extends Component {
 		};
 	}
 	componentDidMount() {
-		UserService.getAllUser(2)
+		UserService.getAllUser(3)
 			.then(response => this.setState({ currentUser: response.data }));
 	}
 	render() {
@@ -22,7 +21,7 @@ export default class ParentsList extends Component {
 						<div className="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
 							<div className="d-flex">
 								<div className="breadcrumb">
-									<a href="index.html" className="breadcrumb-item"><i className="icon-home2 mr-2"></i> Parent List</a>
+									<a href="index.html" className="breadcrumb-item"><i className="icon-home2 mr-2"></i> Tutor List</a>
 								</div>
 								<a href="#" className="header-elements-toggle text-default d-md-none"><i className="icon-more"></i></a>
 							</div>
@@ -40,7 +39,7 @@ export default class ParentsList extends Component {
 											<th>#</th>
 											<th>First Name</th>
 											<th>Last Name</th>
-											<th>Username</th>
+											<th>Email</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -59,7 +58,7 @@ export default class ParentsList extends Component {
 											))
 										) : (
 												<tr>
-													<td colSpan={4} className="Textalign">No Parents</td>
+													<td colSpan={4} className="Textalign">No Tutor</td>
 												</tr>
 											)}
 									</tbody>

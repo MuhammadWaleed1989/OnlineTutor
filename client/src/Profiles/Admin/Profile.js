@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import SideBar from "../Components/SideBar";
+import Navbar from "../../Components/Navbar";
+import SideBar from "../../Components/SideBar";
 import StudentList from "./StudentList";
 import TutorList from "./TutorList";
 import ParentList from "./ParentsList";
@@ -17,7 +17,7 @@ export default class Home extends Component {
 
     componentDidMount() {
         this.setState({
-            content: "Hi This is muhammad"
+            content: "Hi This is muhammad!"
         });
     }
 

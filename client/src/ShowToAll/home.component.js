@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "../Login/Login";
 import Registration from "../Login/Registration";
-import AuthService from "../services/auth.service";
 
 export default class Home extends Component {
     render() {
