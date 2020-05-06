@@ -25,7 +25,7 @@ export default class TutorLayout extends Component {
             <>
                 <Router>
                     <Navbar />
-                    <div class="page-content">
+                    <div className="page-content">
                         <SideBar />
                         <Switch>
 

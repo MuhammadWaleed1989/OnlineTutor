@@ -13,12 +13,13 @@ export default class ParentProfile extends Component {
             successful: false
 
         };
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
 
         const users = JSON.parse(localStorage.getItem('user'));
-        this.setState({ formValues: users[0] });
+        this.setState({ formValues: users });
     }
     handleChange(event) {
         event.preventDefault();
@@ -42,8 +43,10 @@ export default class ParentProfile extends Component {
             data
         ).then(
             response => {
+                localStorage.setItem("user", JSON.stringify(response.data[0]));
+
                 this.setState({
-                    message: response.data.message,
+                    message: "Successfully updated",
                     successful: true
                 });
             },
@@ -96,11 +99,11 @@ export default class ParentProfile extends Component {
                                                     <div className="row">
                                                         <div className="col-md-6">
                                                             <label>First Name</label>
-                                                            <input type="text" id="FirstName" name="FirstName" value={this.state.formValues["FirstName"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="FirstName" name="FirstName" value={this.state.formValues["FirstName"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <label>Last Name</label>
-                                                            <input type="text" id="LastName" name="LastName" value={this.state.formValues["LastName"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="LastName" name="LastName" value={this.state.formValues["LastName"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -109,11 +112,11 @@ export default class ParentProfile extends Component {
                                                     <div className="row">
                                                         <div className="col-md-6">
                                                             <label>Address line 1</label>
-                                                            <input type="text" id="AdressLineOne" name="AdressLineOne" value={this.state.formValues["AdressLineOne"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="AdressLineOne" name="AdressLineOne" value={this.state.formValues["AdressLineOne"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <label>Address line 2</label>
-                                                            <input type="text" id="AdressLineTwo" name="AdressLineTwo" value={this.state.formValues["AdressLineTwo"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="AdressLineTwo" name="AdressLineTwo" value={this.state.formValues["AdressLineTwo"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,15 +125,15 @@ export default class ParentProfile extends Component {
                                                     <div className="row">
                                                         <div className="col-md-4">
                                                             <label>City</label>
-                                                            <input type="text" id="City" name="City" value={this.state.formValues["City"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="City" name="City" value={this.state.formValues["City"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                         <div className="col-md-4">
                                                             <label>State/Province</label>
-                                                            <input type="text" id="State" name="State" value={this.state.formValues["State"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="State" name="State" value={this.state.formValues["State"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                         <div className="col-md-4">
                                                             <label>ZIP code</label>
-                                                            <input type="text" id="ZipCode" name="ZipCode" value={this.state.formValues["ZipCode"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="ZipCode" name="ZipCode" value={this.state.formValues["ZipCode"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -139,19 +142,18 @@ export default class ParentProfile extends Component {
                                                     <div className="row">
                                                         <div className="col-md-6">
                                                             <label>Email</label>
-                                                            <input type="text" readOnly="readOnly" id="Email" name="Email" value={this.state.formValues["Email"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" readOnly="readOnly" id="Email" name="Email" value={this.state.formValues["Email"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                         </div>
                                                         <div className="col-md-6">
                                                             <label>Your country</label>
-                                                            <select className="form-control form-control-select2 select2-hidden-accessible" data-fouc="" data-select2-id="1" tabIndex="-1" aria-hidden="true">
-                                                                <option value="germany" selected="" data-select2-id="3">Germany</option>
+                                                            <select className="form-control" >
+                                                                <option value="germany" >Germany</option>
                                                                 <option value="france">France</option>
                                                                 <option value="spain">Spain</option>
                                                                 <option value="netherlands">Netherlands</option>
                                                                 <option value="other">...</option>
                                                                 <option value="uk">United Kingdom</option>
-                                                            </select><span className="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2"><span className="selection"><span className="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabIndex="0" aria-disabled="false" aria-labelledby="select2-4o7t-container"><span className="select2-selection__rendered" id="select2-4o7t-container" role="textbox" aria-readonly="true" title="Germany">Germany</span><span className="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span>
-                                                            </span><span className="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,7 +162,7 @@ export default class ParentProfile extends Component {
                                                     <div className="row">
                                                         <div className="col-md-6">
                                                             <label>Phone #</label>
-                                                            <input type="text" id="Phone" name="Phone" value={this.state.formValues["Phone"]} onChange={this.handleChange.bind(this)} className="form-control"></input>
+                                                            <input type="text" id="Phone" name="Phone" value={this.state.formValues["Phone"] || ''} onChange={this.handleChange} className="form-control"></input>
                                                             <span className="form-text text-muted">+99-99-9999-9999</span>
                                                         </div>
 

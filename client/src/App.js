@@ -24,7 +24,7 @@ class App extends Component {
     if (user) {
       this.setState({
         currentUser: AuthService.getCurrentUser(),
-        userType: user[0].UserType
+        userType: user.UserType
       });
     }
   }

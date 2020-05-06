@@ -26,7 +26,7 @@ export default class AdminLayout extends Component {
             <>
                 <Router>
                     <Navbar />
-                    <div class="page-content">
+                    <div className="page-content">
                         <SideBar />
                         <Switch>
 
