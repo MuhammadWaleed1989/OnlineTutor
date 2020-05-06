@@ -21,7 +21,7 @@ module.exports = {
   },
 
   edit: function (req, res) {
-    UserData.getById(req.con, req.params.id, function (err, rows) {
+    UserData.getById(req.con, req.params.UserID, function (err, rows) {
       if (err) { }
       else {
         res.json(rows);
@@ -31,8 +31,11 @@ module.exports = {
   },
 
   update: function (req, res) {
-    UserData.update(req.con, req.body, req.params.TutorSubjectId, function (err) {
-      if (err) { }
+    UserData.update(req.con, req.body, req.params.UserID, function (err) {
+
+      if (err) {
+        res.json({ "Error": true, "Message": err });
+      }
       else {
         res.json({ Message: "Record updated successfully" });
       }
@@ -40,7 +43,7 @@ module.exports = {
   },
 
   destroy: function (req, res) {
-    UserData.destroy(req.con, req.params.TutorSubjectId, function (err) {
+    UserData.destroy(req.con, req.params.UserID, function (err) {
       if (err) { }
       else {
         res.json({ Message: "Record deleted successfully" });

@@ -15,7 +15,7 @@ module.exports = {
         LastName = '${data.LastName}', 
         Phone = '${data.Phone}', 
         Email = '${data.Email}', 
-        Street = '${data.Street}', 
+        State = '${data.State}', 
         City = '${data.City}', 
         ZipCode = '${data.ZipCode}', 
         Country = '${data.Country}', 
@@ -35,22 +35,11 @@ module.exports = {
 
 
   update: function (con, data, UserID, callback) {
-    con.query(
-      `UPDATE tblUser SET 
-        FirstName = '${data.FirstName}', 
-        LastName = '${data.LastName}', 
-        Phone = '${data.Phone}', 
-        Email = '${data.Eamil}', 
-        Street = '${data.Steet}', 
-        City = '${data.City}', 
-        ZipCode = '${data.ZipCode}', 
-        Country = '${data.Country}', 
-        AddressLineOne = '${data.AddressLineOne}', 
-        AddressLineTwo ='${data.AddressLineTwo}',         
-        ModifiedDate = '${data.ModifiedDate}' 
-        WHERE UserID = ${UserID}`,
-      callback
-    )
+    // console.log(data)
+    // console.log(UserID)
+    const qry = `update tblUser SET FirstName = '${data.FirstName}', LastName = '${data.LastName}', Phone = '${data.Phone}' , State = '${data.State}',    City = '${data.City}', ZipCode = '${data.ZipCode}', Country = '${data.Country}', AdressLineOne = '${data.AdressLineOne}', AdressLineTwo ='${data.AdressLineTwo}'  WHERE UserID = '${data.UserID}'`;
+    console.log(qry)
+    con.query(qry, callback)
   },
 
   destroy: function (con, UserID, callback) {

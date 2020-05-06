@@ -8,6 +8,10 @@ class UserService {
     getAllUser(userTypeID) {
         return axios.post(API_URL + 'users', { UserTypeID: userTypeID });
     }
+    postUserData(data) {
+
+        return axios.put(API_URL + 'users/' + JSON.parse(localStorage.getItem('UserID')), data);
+    }
     getPublicContent() {
         return axios.get(API_URL + 'all');
     }

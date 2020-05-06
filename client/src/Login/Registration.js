@@ -13,7 +13,7 @@ export default class Registration extends Component {
       Email: '',
       Password: '',
       Phone: '',
-      Street: '',
+      State: '',
       City: '',
       ZipCode: '',
       Country: '',
@@ -40,7 +40,7 @@ export default class Registration extends Component {
     const data = {
       FirstName: this.state.FirstName, LastName: this.state.LastName, Email: this.state.Email, Password: this.state.Password,
       Phone: this.state.Phone,
-      Street: this.state.Street,
+      State: this.state.State,
       City: this.state.City,
       ZipCode: this.state.ZipCode,
       Country: this.state.Country,

@@ -31,9 +31,7 @@ export default class Login extends Component {
       data
     ).then(
       response => {
-        debugger;
         if (response.accessToken) {
-          debugger
           const user = response.user;
           const userType = user[0].UserType;
           switch (userType) {
