@@ -1,0 +1,322 @@
+html{
+    scroll-behavior: smooth;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.main_wrapper{
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgb(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    display: hide;
+}
+.main_wrapper .wrapper{
+    position: relative;
+    width: 90%;
+    height: 90vh;
+    background: #fff;
+    border-radius: 10px;
+    overflow: auto;
+    scroll-behavior: smooth;
+    
+}
+.wrapper::-webkit-scrollbar{
+    width: 25px;
+    border-radius: 10px;
+}
+.wrapper::-webkit-scrollbar-track{
+    background: #232f49;
+    box-shadow: inset 0px 0px 6px #fff, inset -0px -0px 6px #fff;
+    border-radius: 10px;
+}
+.wrapper::-webkit-scrollbar-thumb{
+    background: linear-gradient(
+        45deg,
+        #d50951,
+        #232f49
+    );
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 6px #fff, inset -0px -0px 6px #fff;
+}
+
+.main_wrapper .wrapper .cover{
+    width: 100%;
+    height: 30vh;
+    background: linear-gradient(rgba(50,65,72, 0.7), rgba(50,65,72, 0.7)), url(../images/cover.jpg);
+    background-size: cover;
+    background-position: bottom;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    
+}
+
+/* Close Designing */
+.main_wrapper .wrapper .cover .close_box{
+    float: right;
+    margin: 10px 15px 0 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: 0.25s linear;
+    position: fixed;
+    left: 92%;
+}
+.main_wrapper .wrapper .cover .close_box:hover{
+    background: red;
+    color: #fff;
+}
+
+
+.main_wrapper .wrapper .cover .close_box i{
+    font-size: medium;
+}
+.main_wrapper .wrapper .cover .cover_wrapper{
+    width: 70%;
+    height: 30vh;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper{
+    width: 70%;
+    height: 30vh;
+    float: right;
+    color: #fff;
+    padding: 20px;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper h1{
+    font-weight: bolder;
+    font-size: 3rem;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .stars{
+    display: flex;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .stars ul li{
+    display: inline-block;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .stars ul li i{
+    font-size: 2rem;
+    margin-right: 5px;
+    color: #f8be15;
+    cursor: not-allowed;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .stars a{
+    color: #fff;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .stars span{
+    text-decoration: underline;
+    font-size: medium;
+    line-height: 2.5;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .detail h4{
+    font-weight: 700;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .nav_bar{
+    position: sticky;
+    top: 25.5vh;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .nav_bar ul li{
+    display: inline-block;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .nav_bar ul li a{
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-right: 20px;
+    text-transform: capitalize;
+    color: #fff;
+    font-weight: 700;
+    padding: 5px 0px;
+    transition: .25s linear;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .nav_bar ul li a:hover{
+    border-bottom: 5px solid #232f49;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .nav_bar ul li a:nth-child(1):active{
+    border-bottom: 5px solid #232f49;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .header_wrapper .nav_bar ul li a:focus{
+    border-bottom: 5px solid #232f49;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .profile_image{
+    margin-top: 15px;
+    margin-left: 2.5%;
+    width: 25%;
+    height: 50vh;
+    position: sticky;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: -1px -1px 3px #8a8a8a, 1px 1px 3px #8a8a8a;
+    padding: 10px;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .profile_image img{
+    border-radius: 50%;
+    width: 150px;
+    position: absolute;
+    top: 7%;
+    left: 27.5%;
+    z-index: 1000;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .profile_image .icon_wrapper{
+    width: 90%;
+    position: absolute;
+    top: 50%;
+    height: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #232f49;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .profile_image .icon_wrapper div{
+    width: 31%;
+    height: 90%;
+    padding: 1rem;
+    border: 1px solid #232f49;
+    font-size: small;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .profile_image .icon_wrapper div i{
+    font-size: x-large;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .button{
+    width: 90%;
+    position: absolute;
+    top: 75%;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .button a:nth-child(1){
+    background: #d50951;
+    border: none;
+    transition: 0.25s;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .button a:nth-child(2){
+    background: rgba(0, 0, 0, 0);
+    color: rgba(50,65,72, 1);
+    transition: 0.25s;
+}
+.main_wrapper .wrapper .cover .cover_wrapper .button a:hover{
+    transform: translateY(-0.1rem);
+}
+.main_wrapper .wrapper .body{
+    width: 70%;
+    margin: 0px auto;
+}
+.main_wrapper .wrapper .body .content_body{
+    width: 70%;
+    margin-top: 20px;
+    float: right;
+}
+.main_wrapper .wrapper .body .content_body .box{ 
+    padding: 20px;
+    box-shadow: -1px -1px 3px #8a8a8a, 1px 1px 3px #8a8a8a;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.main_wrapper .wrapper .body .content_body h2, .main_wrapper .wrapper .body .content_body h5{
+    font-weight: 700;
+    margin: 20px 0;
+}
+.main_wrapper .wrapper .body .content_body h2 i{
+    margin-right: 10px;
+    color: #232f49;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg{
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid lightgrey;
+    margin-top: 10px;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg .profile{
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg{
+    overflow: wrap;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg p{
+    color: grey;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg .profile .logo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rebeccapurple;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg .profile .logo2{
+    background: green;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg  ul li{
+    display: inline-block;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg  ul li i{
+    color: #f8be15;
+    cursor: not-allowed;
+}
+.main_wrapper .wrapper .body .content_body .reviews .review_msg p{
+    line-height: 1;
+}
+
+/* Tabe Designig */
+.main_wrapper .wrapper .body .content_body .availability table{
+    border: none;
+    width: 95%;
+    margin-top: 0px auto;
+}
+.main_wrapper .wrapper .body .content_body .availability table thead tr th{
+    border: none;
+    background-color: #fff;
+    text-align: center;
+}
+.main_wrapper .wrapper .body .content_body .availability table tbody tr td {
+    text-align: center;
+    padding-top: 40px;
+    color: #5cb85c;
+}
+.main_wrapper .wrapper .body .content_body .availability table tbody tr td:nth-child(1){
+    border: none;
+}
+.main_wrapper .wrapper .body .content_body .availability table tbody tr td:nth-child(1) p{
+    line-height: 0.5;
+    text-align: right;
+    color: #232f49;
+}
+
+/* Subject */
+.main_wrapper .wrapper .body .content_body .subject p{
+    color: grey;
+}
+.main_wrapper .wrapper .body .content_body .subject table tbody tr td{
+    border: none;
+    color: grey;
+    padding: 0;
+    line-height: 0.5;
+}
+
+/* Qualification  */
+.main_wrapper .wrapper .body .content_body .qualification table tbody tr td{
+    border: none;
+    color: grey;
+    padding: 0;
+}

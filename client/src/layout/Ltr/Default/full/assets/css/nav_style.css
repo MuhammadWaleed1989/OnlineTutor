@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.Link{
+    width: 100%;
+    display: inline-flex;
+    padding: 0px;
+    margin: 0px;
+    height: 50px;
+}
+.link ul{
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    height: auto;
+    margin-bottom: 0px;
+}
+.Link ul li{
+    display: inline-flex;
+    font-size: small;
+    margin: 0px;
+    margin-top: 15px;
+}
+
+.Link ul li a{
+    color: #fff;
+    margin: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+.Link ul li a span{
+    margin: 0px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+.Link ul li a span:hover{
+    background: rgba(255, 255, 255, 0.1);
+}
+.Link .Link_button{
+    margin: 0;
+    padding: 0;
+}
+.Link .Link_button:hover{
+    background: rgba(255, 255, 255, 0.1);
+}
+.Link .Link_button:focus{
+    background: rgba(255, 255, 255, 0.1);
+}
+.Link .Link_button button{
+    border-radius: 0;
+    background: none;
+    padding: 15px 20px;
+}
+.Link .Link_button button:focus{
+    background: rgba(255, 255, 255, 0.1);
+}
+.Link .Link_button div{
+    padding: 0;
+    background-color: #324148;
+}
+.Link .Link_button div a{
+    color: #fff;
+}
+.Link .Link_button div a:hover{
+    background: rgba(255, 255, 255, 0.1);
+}
+.Link .Link_button .dropdown-menu a{
+    padding: 10px;
+}
