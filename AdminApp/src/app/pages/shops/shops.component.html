@@ -1,0 +1,298 @@
+<div class="container-fluid">
+
+  <app-page-title title="Shops" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box mr-2 mb-2 d-inline-block">
+                <!-- <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div> -->
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-right">
+                <button type="button" (click)="openModal(largeDataModal,null)"
+                  class="btn btn-success btn-rounded mb-2 mr-2">
+                  <i class="mdi mdi-plus mr-1"></i> New Shop
+                </button>
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-4 col-sm-6" *ngFor="let data of shopData">
+      <div class="card">
+        <div class="row">
+          <div class="col-xl-5">
+            <div class="text-center p-4 border-right">
+              <div class="avatar-sm mx-auto mb-4">
+                <span class="avatar-title rounded-circle bg-soft-{{data.color}} text-{{data.color}} font-size-16">
+                  {{data.Name.charAt(0)}}
+                </span>
+              </div>
+              <h5 class="text-truncate">{{data.Name}}</h5>
+            </div>
+          </div>
+
+          <div class="col-xl-7">
+            <div class="p-4 text-center text-xl-left">
+              <div class="row">
+                <div class="col-md-6">
+                  <div>
+                    <p class="text-muted mb-2 text-truncate">Products</p>
+                    <h5>12</h5>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div>
+                    <p class="text-muted mb-2 text-truncate">Wallet Balance</p>
+                    <h5>12</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div>
+                    <p class="text-muted mb-2 text-truncate">Profile</p>
+                    <button type="button" class="btn btn-primary btn-sm btn-rounded"
+                      (click)="openShopDetailModal(content,data)">View</button>
+                    <button type="button" class="btn btn-primary btn-sm btn-rounded"
+                      (click)="openModal(largeDataModal,data)">Edit</button>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div>
+                    <p class="text-muted mb-2 text-truncate">Is Active</p>
+                    <ui-switch defaultBoColor="#dfdfdf" color="#34c38f" [checked]="data.IsActive" class="ml-1">
+                    </ui-switch>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  end row -->
+
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center my-3">
+        <a href="javascript:void(0);" class="text-success"><i
+            class="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i> Load more </a>
+      </div>
+    </div> <!-- end col-->
+  </div>
+  <!-- end row -->
+</div> <!-- container-fluid -->
+<ng-template #largeDataModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Add Shop</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+
+
+        <form (ngSubmit)="submitShopData()" [formGroup]="shopForm">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="Name"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.Name.errors}" placeholder="Enter name" />
+            <div *ngIf="isFormSubmitted && type.Name.errors" class="invalid-feedback">
+              <span *ngIf="type.Name.errors.required">First name is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Detail</label>
+            <input type="text" class="form-control" formControlName="Detail"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.Detail.errors}" placeholder="Enter detail" />
+            <div *ngIf="isFormSubmitted && type.Detail.errors" class="invalid-feedback">
+              <span *ngIf="type.Detail.errors.required">Last name is required.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>E-Mail</label>
+            <div>
+              <input type="email" class="form-control" formControlName="Email"
+                [ngClass]="{'is-invalid': isFormSubmitted && type.Email.errors}" placeholder="Enter a valid e-mail" />
+              <div *ngIf="isFormSubmitted && type.Email.errors" class="invalid-feedback">
+                <span *ngIf="type.Email.errors.required">This value is required.</span>
+                <span *ngIf="type.Email.errors.pattern">This value should be a valid email.</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" formControlName="Phone"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.Phone.errors}" placeholder="Enter phone"
+              mask="(00) 000-000 0000" />
+            <span class="text-muted">e.g "(92) 332-911 1111"</span>
+            <div *ngIf="isFormSubmitted && type.Phone.errors" class="invalid-feedback">
+              <span *ngIf="type.Phone.errors.required">Phone number is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control" formControlName="Address"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.Address.errors}" placeholder="Enter address" />
+            <div *ngIf="isFormSubmitted && type.Address.errors" class="invalid-feedback">
+              <span *ngIf="type.Address.errors.required">Address field is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" class="form-control" formControlName="City"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.City.errors}" placeholder="Enter city" />
+            <div *ngIf="isFormSubmitted && type.City.errors" class="invalid-feedback">
+              <span *ngIf="type.City.errors.required">City is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Shop Percentage</label>
+            <input type="text" class="form-control" formControlName="ShopPercentage"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.ShopPercentage.errors}"
+              placeholder="Enter Shop Percentage" />
+            <div *ngIf="isFormSubmitted && type.ShopPercentage.errors" class="invalid-feedback">
+              <span *ngIf="type.ShopPercentage.errors.required">Shop Percentage is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Is Active</label>
+            <ui-switch defaultBoColor="#dfdfdf" class="form-control" color="#34c38f" formControlName="IsActive"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.IsActive.errors}" class="ml-1">
+            </ui-switch>
+
+            <div *ngIf="isFormSubmitted && type.IsActive.errors" class="invalid-feedback">
+              <span *ngIf="type.IsActive.errors.required">Is Active is required.</span>
+            </div>
+          </div>
+          <div class="form-group mb-0">
+            <div>
+              <button type="submit" class="btn btn-primary mr-1">
+                Submit
+              </button>
+              <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-secondary">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Shop Detail</h5>
+    <button type="button" class="close" aria-hidden="true" (click)="modal.dismiss('Cross click')">×</button>
+  </div>
+  <div class="modal-body">
+    <p class="mb-2">
+      Name:
+      <span class="text-primary">{{shops.Name}}</span>
+    </p>
+    <p class="mb-2">
+      Detail:
+      <span class="text-primary">{{shops.Detail}}</span>
+    </p>
+    <p class="mb-2">
+      Address:
+      <span class="text-primary">{{shops.Address}}</span>
+    </p>
+    <p class="mb-2">
+      Phone:
+      <span class="text-primary">{{shops.Phone}}</span>
+    </p>
+    <p class="mb-2">
+      City:
+      <span class="text-primary">{{shops.City}}</span>
+    </p>
+    <p class="mb-2">
+      Email:
+      <span class="text-primary">{{shops.Email}}</span>
+    </p>
+    <p class="mb-2">
+      ShopPercentage:
+      <span class="text-primary">{{shops.ShopPercentage}}</span>
+    </p>
+    <div class="table-responsive">
+      <table class="table table-centered table-nowrap">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div>
+                <img src="assets/images/product/img-7.png" alt class="avatar-sm" />
+              </div>
+            </th>
+            <td>
+              <div>
+                <h5 class="text-truncate font-size-14">Wireless Headphone (Black)</h5>
+                <p class="text-muted mb-0">$ 225 x 1</p>
+              </div>
+            </td>
+            <td>$ 255</td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <div>
+                <img src="assets/images/product/img-4.png" alt class="avatar-sm" />
+              </div>
+            </th>
+            <td>
+              <div>
+                <h5 class="text-truncate font-size-14">Phone patterned cases</h5>
+                <p class="text-muted mb-0">$ 145 x 1</p>
+              </div>
+            </td>
+            <td>$ 145</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0 text-right">Sub Total:</h6>
+            </td>
+            <td>$ 400</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0 text-right">Shipping:</h6>
+            </td>
+            <td>Free</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h6 class="m-0 text-right">Total:</h6>
+            </td>
+            <td>$ 400</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>

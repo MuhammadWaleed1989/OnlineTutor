@@ -23,6 +23,12 @@ export default class TutorProfile extends Component {
     }
     componentDidMount() {
 
+        this.getTutorBio();
+
+
+    }
+
+    getTutorBio() {
         const users = JSON.parse(localStorage.getItem('user'));
 
         UserService.getTutorBio(users.UserID).then(
@@ -45,11 +51,7 @@ export default class TutorProfile extends Component {
                 });
             }
         );
-
-
     }
-
-
     handleChangeTutorBio(event) {
         event.preventDefault();
         let tutorBio = this.state.tutorBio;
@@ -68,30 +70,59 @@ export default class TutorProfile extends Component {
             successful: false
         });
         const data = this.state.tutorBio;
-        UserService.postTutorBio(
-            data
-        ).then(
-            response => {
+        if (data.TutorBioID === "-1") {
+            UserService.postTutorBio(
+                data
+            ).then(
+                response => {
+                    this.getTutorBio();
+                    this.setState({
+                        message: "Successfully updated",
+                        successful: true
+                    });
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
 
-                this.setState({
-                    message: "Successfully updated",
-                    successful: true
-                });
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+                    this.setState({
+                        successful: false,
+                        message: resMessage
+                    });
+                }
+            );
+        }
+        else {
+            UserService.updateTutorBio(
+                data
+            ).then(
+                response => {
 
-                this.setState({
-                    successful: false,
-                    message: resMessage
-                });
-            }
-        );
+                    this.setState({
+                        message: "Successfully updated",
+                        successful: true
+                    });
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+
+                    this.setState({
+                        successful: false,
+                        message: resMessage
+                    });
+                }
+            );
+        }
+
     }
 
 
@@ -147,14 +178,14 @@ export default class TutorProfile extends Component {
                                     </div>
                                     <div className="form-group">
                                         <div className="row">
-                                            <div className="col-md-6">
+                                            <div className="col-md-12">
                                                 <label>Major Subject</label>
                                                 <input type="text" id="MajorSubject" name="MajorSubject" value={this.state.tutorBio["MajorSubject"] || ''} onChange={this.handleChangeTutorBio} className="form-control"></input>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <label>Grade</label>
                                                 <input type="text" id="Grade" name="Grade" value={this.state.tutorBio["Grade"] || ''} onChange={this.handleChangeTutorBio} className="form-control"></input>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                     <div className="text-right">

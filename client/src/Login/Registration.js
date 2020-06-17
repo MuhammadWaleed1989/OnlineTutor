@@ -165,32 +165,32 @@ export default class Registration extends Component {
     formData.append('AdressLineOne', this.state.AdressLineOne)
     formData.append('AdressLineTwo', this.state.AdressLineTwo)
     formData.append('UserTypeID', this.state.UserTypeID)
-    if (this.validateForm()) {
-      AuthService.register(
-        formData
-      ).then(
-        response => {
+    //if (this.validateForm()) {
+    AuthService.register(
+      formData
+    ).then(
+      response => {
 
-          this.setState({
-            message: response.data.message,
-            successful: true
-          });
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+        this.setState({
+          message: response.data.message,
+          successful: true
+        });
+      },
+      error => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
 
-          this.setState({
-            successful: false,
-            message: resMessage
-          });
-        }
-      );
-    }
+        this.setState({
+          successful: false,
+          message: resMessage
+        });
+      }
+    );
+    //}
 
   }
   onFileChange(e) {

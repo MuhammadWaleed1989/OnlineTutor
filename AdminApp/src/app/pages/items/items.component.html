@@ -1,0 +1,192 @@
+<div class="container-fluid">
+
+  <app-page-title title="Items" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box mr-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-right">
+                <button type="button" (click)="openItemModal(largeDataModal,null)"
+                  class="btn btn-success btn-rounded mb-2 mr-2">
+                  <i class="mdi mdi-plus mr-1"></i> New Item
+                </button>
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+          <div>{{statusMessage}}</div>
+          <div class="table-responsive">
+            <table class="table table-centered table-nowrap">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Item Name</th>
+                  <th>Item Description</th>
+                  <th>Item Category</th>
+                  <th>Max Order Count</th>
+                  <th>Item Price</th>
+                  <th>Is Out Of Inventory</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of items  ;let i = index;">
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                      <input id="customCheck{{i}}" type="checkbox" class="custom-control-input" />
+                      <label class="custom-control-label" for="customCheck{{i}}">&nbsp;</label>
+                    </div>
+                  </td>
+
+
+                  <td>{{item.ItemName}}</td>
+                  <td>{{item.ItemDescription}}</td>
+                  <td>{{item.ItemCategory.Name}}</td>
+                  <td>{{item.MaxOrderCount}}</td>
+                  <td>{{item.ItemPrice}}</td>
+                  <td>
+                    <div>
+                      <ui-switch defaultBoColor="#dfdfdf" color="#34c38f" [checked]="item.IsOutOfInventory"
+                        class="ml-1">
+
+                      </ui-switch>
+                    </div>
+                  </td>
+                  <!-- <td>{{item.IsOutOfInventory == false ? 'No' : 'Yes'}}</td> -->
+                  <td>
+                    <div class="dropdown" ngbDropdown placement="bottom-right">
+                      <a href="javascript: void(0);" class="dropdown-toggle card-drop" data-toggle="dropdown"
+                        ngbDropdownToggle aria-expanded="false">
+                        <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                        <li><a (click)="openItemModal(largeDataModal,item)" class="dropdown-item"><i
+                              class="fas fa-pencil-alt text-success mr-1"></i>
+                            Edit</a></li>
+                        <li><a (click)="deleteItem(item)" class="dropdown-item"><i
+                              class="fas fa-trash-alt text-danger mr-1"></i>
+                            Delete</a></li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- pagination -->
+          <ngb-pagination [collectionSize]="totalPages" [(page)]="currentpage"
+            class="pagination pagination-rounded justify-content-end mb-2" aria-label="Default pagination">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+</div>
+<!-- Large Modal -->
+<ng-template #largeDataModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Add Item</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+
+
+        <form (ngSubmit)="itemsFormSubmitted()" [formGroup]="itemForm">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="ItemName"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.ItemName.errors}" placeholder="Enter name of item" />
+            <div *ngIf="isFormSubmitted && type.ItemName.errors" class="invalid-feedback">
+              <span *ngIf="type.ItemName.errors.required">First name is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" formControlName="ItemDescription"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.ItemDescription.errors}"
+              placeholder="Enter description" />
+            <div *ngIf="isFormSubmitted && type.ItemDescription.errors" class="invalid-feedback">
+              <span *ngIf="type.ItemDescription.errors.required">Last name is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <ng-select [items]="categories" [clearable]="true" [searchable]="true" bindLabel="Name" bindValue="_id"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.ItemCategoryID.errors}" placeholder="Select category"
+              formControlName="ItemCategoryID">
+            </ng-select>
+            <div *ngIf="isFormSubmitted && type.ItemCategoryID.errors" class="invalid-feedback">
+              <span *ngIf="type.ItemCategoryID.errors.required">Category field is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Max Order Count</label>
+            <input type="text" class="form-control" formControlName="MaxOrderCount"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.MaxOrderCount.errors}" placeholder="Type something" />
+            <div *ngIf="isFormSubmitted && type.MaxOrderCount.errors" class="invalid-feedback">
+              <span *ngIf="type.MaxOrderCount.errors.required">MaxOrderCount field is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" class="form-control" formControlName="ItemPrice"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.ItemPrice.errors}" placeholder="Type something" />
+            <div *ngIf="isFormSubmitted && type.ItemPrice.errors" class="invalid-feedback">
+              <span *ngIf="type.ItemPrice.errors.required">User name is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Images</label>
+            <input type="file" class="form-control" (change)="fileChangeEvent($event)" multiple
+              placeholder="Upload file..." [ngClass]="{'is-invalid': isFormSubmitted && type.ItemPicList.errors}"
+              formControlName="ItemPicList" />
+            <!-- <div class="custom-file">
+
+              <input type="file" class="custom-file-input" multiple id="ItemPicList" formControlName="ItemPicList"
+                [ngClass]="{'is-invalid': isFormSubmitted && type.ItemPicList.errors}">
+              <label class="custom-file-label" for="ItemPicList">Upload Images</label>
+            </div> -->
+            <div *ngIf="isFormSubmitted && type.ItemPicList.errors" class="invalid-feedback">
+              <span *ngIf="type.ItemPicList.errors.required">User name is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Is Out Of Inventory</label>
+            <ui-switch defaultBoColor="#dfdfdf" class="form-control" color="#34c38f" formControlName="IsOutOfInventory"
+              [ngClass]="{'is-invalid': isFormSubmitted && type.IsOutOfInventory.errors}" class="ml-1">
+            </ui-switch>
+
+            <div *ngIf="isFormSubmitted && type.IsOutOfInventory.errors" class="invalid-feedback">
+              <span *ngIf="type.IsOutOfInventory.errors.required">IsOutOfInventory is required.</span>
+            </div>
+          </div>
+          <div class="form-group mb-0">
+            <div>
+              <button type="submit" class="btn btn-primary mr-1">
+                Submit
+              </button>
+              <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-secondary">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</ng-template>

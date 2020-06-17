@@ -1,0 +1,187 @@
+<div class="container-fluid">
+
+  <app-page-title title="User Management" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row mb-2">
+            <div class="col-sm-4">
+              <div class="search-box mr-2 mb-2 d-inline-block">
+                <div class="position-relative">
+                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="term" />
+                  <i class="bx bx-search-alt search-icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-8">
+              <div class="text-sm-right">
+                <button type="button" (click)="openModal(largeDataModal,null)"
+                  class="btn btn-success btn-rounded mb-2 mr-2">
+                  <i class="mdi mdi-plus mr-1"></i> New User
+                </button>
+              </div>
+            </div>
+            <!-- end col-->
+          </div>
+          <div>{{statusMessage}}</div>
+          <div class="table-responsive">
+            <table class="table table-centered table-nowrap">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Username</th>
+                  <th>Phone / Email</th>
+                  <th>Address</th>
+                  <!-- <th>Rating</th> -->
+                  <!-- <th>Wallet Balance</th> -->
+                  <th>Joining Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users  | filter:term ;let i = index;">
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                      <input id="customCheck{{i}}" type="checkbox" class="custom-control-input" />
+                      <label class="custom-control-label" for="customCheck{{i}}">&nbsp;</label>
+                    </div>
+                  </td>
+                  <td>{{user.FirstName}} {{user.LastName}}</td>
+                  <td>
+                    <p class="mb-1">{{user.Phone}}</p>
+                    <p class="mb-0">{{user.Email}}</p>
+                  </td>
+
+                  <td>{{user.Address}}</td>
+                  <!-- <td>
+                    <span class="badge badge-success font-size-12">
+                      <i class="mdi mdi-star mr-1"></i>
+                      {{customers.rating}}
+                    </span>
+                  </td> -->
+                  <!-- <td>{{customers.balance}}</td> -->
+                  <td> {{user.createdAt | date:'dd-MM-yyyy'}}</td>
+                  <td>
+                    <div class="dropdown" ngbDropdown placement="bottom-right">
+                      <a href="javascript: void(0);" class="dropdown-toggle card-drop" data-toggle="dropdown"
+                        ngbDropdownToggle aria-expanded="false">
+                        <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
+                        <li><a (click)="openModal(largeDataModal,user)" class="dropdown-item"><i
+                              class="fas fa-pencil-alt text-success mr-1"></i>
+                            Edit</a></li>
+                        <li><a (click)="deleteEmp(user)" class="dropdown-item"><i
+                              class="fas fa-trash-alt text-danger mr-1"></i>
+                            Delete</a></li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- pagination -->
+          <ngb-pagination [collectionSize]="totalPages" [(page)]="currentpage"
+            class="pagination pagination-rounded justify-content-end mb-2" aria-label="Default pagination">
+          </ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+</div>
+<!-- Large Modal -->
+<ng-template #largeDataModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Edit User</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+
+
+        <form (ngSubmit)="typeSubmit()" [formGroup]="typeValidationForm">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" formControlName="FirstName"
+              [ngClass]="{'is-invalid': typesubmit && type.FirstName.errors}" placeholder="Enter first name" />
+            <div *ngIf="typesubmit && type.FirstName.errors" class="invalid-feedback">
+              <span *ngIf="type.FirstName.errors.required">First name is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" formControlName="LastName"
+              [ngClass]="{'is-invalid': typesubmit && type.LastName.errors}" placeholder="Enter last name" />
+            <div *ngIf="typesubmit && type.LastName.errors" class="invalid-feedback">
+              <span *ngIf="type.LastName.errors.required">Last name is required.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>E-Mail</label>
+            <div>
+              <input type="email" class="form-control" formControlName="Email"
+                [ngClass]="{'is-invalid': typesubmit && type.Email.errors}" placeholder="Enter a valid e-mail" />
+              <div *ngIf="typesubmit && type.Email.errors" class="invalid-feedback">
+                <span *ngIf="type.Email.errors.required">This value is required.</span>
+                <span *ngIf="type.Email.errors.pattern">This value should be a valid email.</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" formControlName="Phone"
+              [ngClass]="{'is-invalid': typesubmit && type.Phone.errors}" placeholder="Type something"
+              mask="(00) 000-000 0000" />
+            <span class="text-muted">e.g "(92) 332-911 1111"</span>
+            <div *ngIf="typesubmit && type.Phone.errors" class="invalid-feedback">
+              <span *ngIf="type.Phone.errors.required">Phone number is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control" formControlName="Address"
+              [ngClass]="{'is-invalid': typesubmit && type.Address.errors}" placeholder="Type something" />
+            <div *ngIf="typesubmit && type.Address.errors" class="invalid-feedback">
+              <span *ngIf="type.Address.errors.required">Address field is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>User Name</label>
+            <input type="text" class="form-control" formControlName="UserName"
+              [ngClass]="{'is-invalid': typesubmit && type.UserName.errors}" placeholder="Type something" />
+            <div *ngIf="typesubmit && type.UserName.errors" class="invalid-feedback">
+              <span *ngIf="type.UserName.errors.required">User name is required.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Shop</label>
+            <ng-select [items]="shops" [clearable]="true" [searchable]="true" bindLabel="Name" bindValue="_id"
+              [ngClass]="{'is-invalid': typesubmit && type.Shop.errors}" placeholder="Select Shop"
+              formControlName="Shop">
+            </ng-select>
+            <div *ngIf="typesubmit && type.Shop.errors" class="invalid-feedback">
+              <span *ngIf="type.Shop.errors.required">Shop field is required.</span>
+            </div>
+          </div>
+          <div class="form-group mb-0">
+            <div>
+              <button type="submit" class="btn btn-primary mr-1">
+                Submit
+              </button>
+              <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-secondary">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</ng-template>

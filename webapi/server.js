@@ -14,6 +14,7 @@ const DIR = './uploads/';
 // connecting route to database
 app.use(function (req, res, next) {
   req.con = con
+
   // Website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
 

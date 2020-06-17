@@ -23,6 +23,10 @@ class UserService {
     postTutorBio(data) {
         return axios.post(API_URL + 'savetutorbio/' + UserID, data, { headers: authHeader() });
     }
+
+    updateTutorBio(data) {
+        return axios.put(API_URL + 'updatetutorbio/' + UserID, data, { headers: authHeader() });
+    }
     updateUserProfileAccess(data) {
         return axios.put(API_URL + 'updateUserProfileAccess', data, { headers: authHeader() });
     }

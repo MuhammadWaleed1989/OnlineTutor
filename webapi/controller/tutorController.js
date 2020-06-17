@@ -66,7 +66,7 @@ module.exports = {
           res.json(rows[0]);
         }
         else {
-          res.json({ LongDescription: '', PayPerHour: '', University: '', MajorSubject: '', Grade: '' });
+          res.json({ TutorBioID: "-1", LongDescription: '', PayPerHour: '', University: '', MajorSubject: '', Grade: '' });
         }
 
       }

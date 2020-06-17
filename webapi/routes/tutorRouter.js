@@ -10,9 +10,9 @@ router.post("/saveTutorSubjectAndLevels/:UserID", tutorController.saveTutorSubje
 
 router.get("/gettutorbio/:UserID", tutorController.getTutorBio)
 router.post("/savetutorbio/:UserID", tutorController.saveTutorBio)
-router.get("/gettutorbiobyid/:TutorBioID/edit", tutorController.getTutorBioByID)
-router.put("/updatetutorbio/:TutorBioID", tutorController.updateTutorBio)
-router.delete("/deletetutorbio/:TutorBioID", tutorController.deleteTutorBio)
+router.get("/gettutorbiobyid/:UserID/edit", tutorController.getTutorBioByID)
+router.put("/updatetutorbio/:UserID", tutorController.updateTutorBio)
+router.delete("/deletetutorbio/:UserID", tutorController.deleteTutorBio)
 
 router.get("/gettutorreview/", tutorController.getTutorReviews)
 router.post("/savetutorreview/", tutorController.saveTutorReviews)
